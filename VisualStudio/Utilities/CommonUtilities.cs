@@ -47,11 +47,11 @@ namespace CommonLib.Utilities
 		[return: NotNullIfNotNull(nameof(name))]
 		public static string? NormalizeName(string name)
 		{
-			string name0 = Regex.Replace(name, @"(?:\(\d{0,}\))", string.Empty);
-			string name1 = Regex.Replace(name0, @"(?:\s\d{0,})", string.Empty);
-			string name2 = name1.Replace("(Clone)", string.Empty, System.StringComparison.InvariantCultureIgnoreCase);
-			string name3 = name2.Replace("\0", string.Empty);
-			return name3.Trim();
+			string result = Regex.Replace(name, @"(?:\(\d{0,}\))", string.Empty);
+			result = Regex.Replace(result, @"(?:\s\d{0,})", string.Empty);
+			result = result.Replace("(Clone)", string.Empty, System.StringComparison.InvariantCultureIgnoreCase);
+			result = result.Replace("\0", string.Empty);
+			return result.Trim();
 		}
 
 		/// <summary>
