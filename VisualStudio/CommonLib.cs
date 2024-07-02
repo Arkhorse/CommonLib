@@ -21,12 +21,12 @@ namespace CommonLib
 {
 
     /// <inheritdoc/>
-	public class Main : MelonMod
+	internal class Main : MelonMod
 	{
-        /// <summary>
-        /// 
-        /// </summary>
-        public static ComplexLogger<Main> Logger = new();
+		/// <summary>
+		/// 
+		/// </summary>
+		internal static ComplexLogger<Main> Logger = new();
 
 		/// <summary>
 		/// 
