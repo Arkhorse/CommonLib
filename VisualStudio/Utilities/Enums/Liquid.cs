@@ -10,14 +10,18 @@
 
 namespace CommonLib.Utilities.Enums
 {
-    /// <summary>
-    /// The game used to have this enum, this just recreats it for use in <see cref="LiquidUilities.GetLiquid(Liquid)"/>
-    /// </summary>
-    public enum Liquid
-    { 
+	/// <summary>
+	/// The game used to have this enum, this just recreats it for use in <see cref="LiquidUtilities.TryGetLiquid(Liquid)"/>
+	/// </summary>
+	public enum Liquid
+    {
+        /// <summary>Drinkable Water</summary>
         Potable,
-        NonPotable,
-        Kerosene,
-        Antiseptic
-    }
+		/// <summary>Unsafe Water</summary>
+		NonPotable,
+		/// <summary>Kerosene</summary>
+		Kerosene,
+		/// <summary>Antiseptic</summary>
+		Antiseptic
+	}
 }
