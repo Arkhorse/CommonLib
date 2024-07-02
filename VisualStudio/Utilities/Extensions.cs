@@ -53,7 +53,7 @@ namespace CommonLib.Utilities
 			return (objects == null) ? null : (objects.Count > 0) ? objects : null;
 #pragma warning restore CS8619
 		}
-
+		#region ItemWeight and ItemLiquidVolume extensions
 		/// <summary>
 		/// 
 		/// </summary>
@@ -72,6 +72,19 @@ namespace CommonLib.Utilities
 		public static double GetLiquidLitersFromItemLiquidVolume(this ItemLiquidVolume volume)
 		{
 			return volume.ToQuantity(ItemLiquidVolume.Liter.m_Units);
+		}
+		#endregion
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="obj"></param>
+		/// <returns></returns>
+		public static T DontUnload<T>(this T obj) where T : UnityEngine.Object
+		{
+			obj.hideFlags |= HideFlags.DontUnloadUnusedAsset;
+
+			return obj;
 		}
 	}
 }
