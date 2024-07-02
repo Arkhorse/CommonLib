@@ -21,7 +21,7 @@ namespace CommonLib.Utilities
 				{
 					UnityEngine.SceneManagement.Scene scene = UnityEngine.SceneManagement.SceneManager.GetSceneAt(i);
 
-					List<GameObject> sceneObjects = scene.GetRootGameObjects().ToList();
+					List<GameObject> sceneObjects = [.. scene.GetRootGameObjects()];
 
 					foreach (GameObject @object in sceneObjects)
 					{
@@ -31,7 +31,10 @@ namespace CommonLib.Utilities
 						}
 					}
 				}
-				catch { }
+				catch (Exception e)
+				{
+					Main.Logger.Log($"GetGameObjectsInScene():: Failed to get gameobjects", FlaggedLoggingLevel.Exception, e);
+				}
 			}
 
 			return matches;
