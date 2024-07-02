@@ -10,18 +10,17 @@
 using Il2CppTLD.Gear;
 namespace CommonLib.Utilities
 {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    /// <summary>
+    /// 
+    /// </summary>
     public class LiquidUtilities
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
-
         /// <summary>
         /// Gets the current liquid type
         /// </summary>
         /// <param name="liquid">The liquid type to fetch</param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public static LiquidType? GetLiquid(Liquid liquid)
+        /// <returns>The current requested liquid if it exists, otherwise <see langword="null"/></returns>
+        public static LiquidType? TryGetLiquid(Liquid liquid)
         {
             try
             {
@@ -31,13 +30,13 @@ namespace CommonLib.Utilities
                     Liquid.NonPotable   => LiquidType.GetNonPotableWater(),
                     Liquid.Kerosene     => LiquidType.GetKerosene(),
                     Liquid.Antiseptic   => LiquidType.GetAntiseptic(),
-                    _ => throw new NotImplementedException()
+                    _ => null
                 };
             }
             catch (Exception e)
             {
                 // this is here to give a proper error as otherwise ML does not log which mod threw the error
-                Main.Logger.Log("GetLiquid::LiquidType was not found", FlaggedLoggingLevel.Exception, e);
+                Main.Logger.Log("TryGetLiquid::LiquidType was not found", FlaggedLoggingLevel.Exception, e);
                 return null;
             }
         }
