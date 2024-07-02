@@ -19,7 +19,6 @@ using System.Text.Json.Serialization;
 
 namespace CommonLib
 {
-
     /// <inheritdoc/>
 	internal class Main : MelonMod
 	{
@@ -27,13 +26,6 @@ namespace CommonLib
 		/// 
 		/// </summary>
 		internal static ComplexLogger<Main> Logger = new();
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[JsonInclude]
-		public static List<object> RegisteredGlobals = new();
-
 		/// <inheritdoc/>
 		public override void OnInitializeMelon()
         {
