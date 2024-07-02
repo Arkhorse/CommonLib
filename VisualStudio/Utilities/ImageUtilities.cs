@@ -54,10 +54,15 @@ namespace CommonLib.Utilities
 		/// <returns>The image if all related functions work, otherwise null</returns>
 		public static Texture2D? GetImage(string FolderName, string FileName, string ext)
 		{
+			if (FolderName.Contains(MelonLoader.Utils.MelonEnvironment.ModsDirectory))
+			{
+				Main.Logger.Log($"Foldername should not contain entire path to folder, should only contain the folder structure under the Mods folder", FlaggedLoggingLevel.Warning);
+				return null;
+			}
 			byte[]? file = null;
 			string AbsoluteFileName = Path.Combine(MelonLoader.Utils.MelonEnvironment.ModsDirectory, FolderName, $"{FileName}.{ext}");
 
-			Main.Logger.Log("GetImage", FlaggedLoggingLevel.Debug, LoggingSubType.IntraSeparator);
+			Main.Logger.Log($"GetImage: {AbsoluteFileName}", FlaggedLoggingLevel.Debug, LoggingSubType.IntraSeparator);
 
 			if (!File.Exists(AbsoluteFileName))
 			{
@@ -65,7 +70,7 @@ namespace CommonLib.Utilities
 				return null;
 			}
 
-			Texture2D texture = new(4096, 4096);
+			Texture2D texture = new(4096, 4096, TextureFormat.RGBA32, false) { name = FileName };
 
 			try
 			{
@@ -90,22 +95,16 @@ namespace CommonLib.Utilities
 				Main.Logger.Log($"Attempting to load requested file failed", FlaggedLoggingLevel.Exception, e);
 			}
 
-			#region Commented Out
-			//if (ImageConversion.LoadImage(texture, file))
-			//{
-			//	Main.Logger.Log($"Successfully loaded file {FileName}", FlaggedLoggingLevel.Debug);
-
-			//	return texture;
-			//}
-			//else
-			//{
-			//	string compression = (ext == "jpg") ? "RGB24 | DXT1" : (ext == "png") ? "ARGB32 | DXT5" : "UNKNOWN";
-			//	Main.Logger.Log($"Could not convert the image \"{FileName}\" as the related compression \"{compression}\" is not supported on this platform", FlaggedLoggingLevel.Debug);
-			//}
-			#endregion
+			if (ImageConversion.LoadImage(texture, file))
+			{
+				Main.Logger.Log($"Successfully loaded file {FileName}", FlaggedLoggingLevel.Debug);
+				texture.DontUnload();
+				return texture;
+			}
 
 			texture.LoadRawTextureData(file);
 			texture.Apply();
+			texture.DontUnload();
 			Main.Logger.Log($"Successfully loaded file {FileName}", FlaggedLoggingLevel.Debug);
 			Main.Logger.Log(FlaggedLoggingLevel.Debug, LoggingSubType.Separator);
 			return texture ?? null;
